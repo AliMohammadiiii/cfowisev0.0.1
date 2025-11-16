@@ -110,15 +110,17 @@ export function AddReportTitleModal({
             <span className="text-sm font-medium text-app-text-primary">
               فعالسازی
             </span>
-            <Switch
-              checked={formData.isActive}
-              onCheckedChange={(checked) =>
-                setFormData({ ...formData, isActive: checked })
-              }
-              className={cn(
-                "w-12 h-[26px] data-[state=unchecked]:bg-[#B1B7C2] data-[state=checked]:bg-app-teal"
-              )}
-            />
+            <div className="relative inline-flex items-center">
+              <Switch
+                checked={formData.isActive}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isActive: checked })
+                }
+                className={cn(
+                  "w-12 h-[26px] data-[state=unchecked]:bg-[#B1B7C2] data-[state=checked]:bg-app-teal"
+                )}
+              />
+            </div>
           </div>
 
           <button
