@@ -1,6 +1,18 @@
 import { Plus } from "lucide-react";
+import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { FieldTable, type FieldData } from "@/components/FieldTable";
+import {
+  AddReportTitleModal,
+  type ReportTitleFormData,
+} from "@/components/AddReportTitleModal";
+
+const groupOptions = [
+  { value: "investment", label: "گروه سرمایه‌گذاری" },
+  { value: "commercial", label: "گروه تجاری" },
+  { value: "financial", label: "گروه مالی" },
+  { value: "service", label: "گروه خدماتی" },
+];
 
 const sampleData: FieldData[] = [
   {
@@ -15,15 +27,19 @@ const sampleData: FieldData[] = [
     id: "2",
     reportTitle: "بهای تمام‌شده",
     titleCode: "۶۲۱۶۲۳۱",
-    groups: "گر��ه نرم افزاری",
+    groups: "گروه نرم افزاری",
     fields: "ـــ",
     titleStatus: "inactive",
   },
 ];
 
 export default function Groups() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+
   const handleEdit = (id: string) => {
-    console.log("Edit clicked for:", id);
+    setEditingId(id);
+    setIsModalOpen(true);
   };
 
   const handleAddField = (id: string) => {
@@ -31,7 +47,14 @@ export default function Groups() {
   };
 
   const handleAdd = () => {
-    console.log("Add new item");
+    setEditingId(null);
+    setIsModalOpen(true);
+  };
+
+  const handleModalSubmit = (data: ReportTitleFormData) => {
+    console.log("Form submitted:", data);
+    setIsModalOpen(false);
+    setEditingId(null);
   };
 
   return (
@@ -57,6 +80,24 @@ export default function Groups() {
           onAddField={handleAddField}
         />
       </div>
+
+      <AddReportTitleModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onSubmit={handleModalSubmit}
+        groupOptions={groupOptions}
+        initialData={
+          editingId
+            ? {
+                title: "فروش و درآمد",
+                groups: ["financial", "service"],
+                description:
+                  "این عنوان مربوط به گروه های مالی خدماتی میباشد",
+                isActive: true,
+              }
+            : undefined
+        }
+      />
     </DashboardLayout>
   );
 }
