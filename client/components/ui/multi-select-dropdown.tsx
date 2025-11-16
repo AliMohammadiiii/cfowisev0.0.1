@@ -123,24 +123,25 @@ export function MultiSelectDropdown({
               {options.map((option) => {
                 const isChecked = value.includes(option.value);
                 return (
-                  <button
+                  <div
                     key={option.value}
-                    type="button"
                     onClick={() => handleToggle(option.value)}
-                    className="flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg hover:bg-app-light transition-colors text-right"
+                    className="flex items-center justify-between gap-2 px-2.5 py-2 rounded-lg hover:bg-app-light transition-colors text-right cursor-pointer"
                   >
-                    <Checkbox
-                      checked={isChecked}
-                      onCheckedChange={() => handleToggle(option.value)}
-                      className={cn(
-                        "w-4 h-4 border-app-border rounded",
-                        isChecked && "bg-app-teal border-app-teal"
-                      )}
-                    />
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <Checkbox
+                        checked={isChecked}
+                        onCheckedChange={() => handleToggle(option.value)}
+                        className={cn(
+                          "w-4 h-4 border-app-border rounded",
+                          isChecked && "bg-app-teal border-app-teal"
+                        )}
+                      />
+                    </div>
                     <span className="flex-1 text-sm font-medium text-app-text-secondary">
                       {option.label}
                     </span>
-                  </button>
+                  </div>
                 );
               })}
             </div>
