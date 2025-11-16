@@ -1,51 +1,61 @@
 import { Plus } from "lucide-react";
 import DashboardLayout from "@/components/DashboardLayout";
+import { FieldTable, type FieldData } from "@/components/FieldTable";
+
+const sampleData: FieldData[] = [
+  {
+    id: "1",
+    reportTitle: "فروش و درآمد",
+    titleCode: "۱۲۳۴۵۶۷",
+    groups: "گروه مالی، گروه خدماتی",
+    fields: "ـــ",
+    titleStatus: "active",
+  },
+  {
+    id: "2",
+    reportTitle: "بهای تمام‌شده",
+    titleCode: "۶۲۱۶۲۳۱",
+    groups: "گروه نرم افزاری",
+    fields: "ـــ",
+    titleStatus: "inactive",
+  },
+];
 
 export default function Groups() {
+  const handleEdit = (id: string) => {
+    console.log("Edit clicked for:", id);
+  };
+
+  const handleAddField = (id: string) => {
+    console.log("Add field clicked for:", id);
+  };
+
+  const handleAdd = () => {
+    console.log("Add new item");
+  };
+
   return (
     <DashboardLayout pageTitle="تعریف گروه" breadcrumb="تعریف گروه">
       <div className="p-4 md:p-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4">
-          <h2 className="text-sm md:text-base font-bold text-app-text-primary">
-            گروه های تعریف شده
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
+          <h2 className="text-base md:text-lg font-bold text-app-text-primary">
+            عناوین تعریف شده
           </h2>
 
-          <button className="flex items-center gap-2 bg-app-teal text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-app-teal/90 active:bg-app-teal transition-colors flex-shrink-0">
+          <button
+            onClick={handleAdd}
+            className="flex items-center gap-1 bg-app-teal text-white px-4 py-2.5 rounded-lg text-sm font-bold hover:bg-app-teal/90 active:bg-app-teal transition-colors flex-shrink-0"
+          >
             <Plus className="w-5 h-5" />
             <span>افزودن</span>
           </button>
         </div>
 
-        <div className="overflow-x-auto rounded-lg border border-app-border">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-app-light border-b border-app-border">
-                <th className="px-4 md:px-6 py-3 text-right text-xs md:text-sm font-medium text-app-text-secondary">
-                  عنوان گروه
-                </th>
-                <th className="px-4 md:px-6 py-3 text-right text-xs md:text-sm font-medium text-app-text-secondary hidden sm:table-cell">
-                  کد گروه
-                </th>
-                <th className="px-4 md:px-6 py-3 text-right text-xs md:text-sm font-medium text-app-text-secondary hidden lg:table-cell">
-                  توضیحات
-                </th>
-                <th className="px-4 md:px-6 py-3 text-right text-xs md:text-sm font-medium text-app-text-secondary hidden md:table-cell">
-                  وضعیت گروه
-                </th>
-                <th className="px-4 md:px-6 py-3 text-right text-xs md:text-sm font-medium text-app-text-secondary">
-                  عملیات
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colSpan={5} className="p-0">
-                  <EmptyState />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <FieldTable
+          data={sampleData}
+          onEdit={handleEdit}
+          onAddField={handleAddField}
+        />
       </div>
     </DashboardLayout>
   );
