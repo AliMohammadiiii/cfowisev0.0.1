@@ -59,10 +59,16 @@ export function MultiSelectDropdown({
   return (
     <div className="relative w-full" ref={dropdownRef}>
       <div className="relative">
-        <button
-          type="button"
+        <div
+          role="button"
+          tabIndex={0}
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-between w-full rounded-lg border border-app-border bg-white px-3 py-4 gap-2 text-right"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              setIsOpen(!isOpen);
+            }
+          }}
+          className="flex items-center justify-between w-full rounded-lg border border-app-border bg-white px-3 py-4 gap-2 text-right cursor-pointer hover:border-app-text-secondary transition-colors"
         >
           <ChevronDown
             className={cn(
@@ -86,6 +92,7 @@ export function MultiSelectDropdown({
                         if (optValue) handleRemoveTag(optValue);
                       }}
                       className="flex items-center justify-center p-0.5 rounded hover:bg-gray-100"
+                      aria-label={`حذف ${label}`}
                     >
                       <X className="w-3 h-3 text-app-text-secondary" />
                     </button>
@@ -101,7 +108,7 @@ export function MultiSelectDropdown({
               </span>
             )}
           </div>
-        </button>
+        </div>
         <div className="absolute -top-[3px] right-3 px-0.5 bg-white z-10">
           <span className="text-xs text-app-text-tertiary leading-none">
             {label}
