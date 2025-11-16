@@ -62,17 +62,17 @@ export function AddReportTitleModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[551px] p-4 gap-0 rounded-xl">
+      <DialogContent className="max-w-[551px] p-4 gap-0 rounded-xl [&>button]:hidden">
         <button
           onClick={() => onOpenChange(false)}
-          className="absolute left-4 top-4 w-10 h-10 flex items-center justify-center rounded-xl bg-app-light hover:bg-app-light/80 transition-colors"
+          className="absolute left-4 top-4 w-10 h-10 flex items-center justify-center rounded-xl bg-app-light hover:bg-app-light/80 transition-colors z-10"
           aria-label="بستن"
         >
           <X className="w-5 h-5 text-app-text-primary" />
         </button>
 
         <DialogHeader className="mb-6">
-          <DialogTitle className="text-base font-bold text-app-text-primary text-right">
+          <DialogTitle className="text-base font-bold text-app-text-primary text-right pr-0">
             افزودن عنوان گزارش
           </DialogTitle>
         </DialogHeader>
